@@ -1,0 +1,634 @@
+/* General */
+* {
+    font-family: "Audiowide";
+}
+
+p {
+    font-size: 20px;
+}
+
+/* Bettor boxes */
+.bettor-box-poly {
+    position: absolute;
+    border-left: 1em solid #8c1717;
+    
+    width: inherit;
+}
+
+.bettor-box-poly polygon {
+    fill:rgb(80, 80, 80);
+    stroke: black;
+    stroke-width: 0.1em;
+}
+
+.bettor-box {
+    float: left;
+    margin: 20px;
+    width: 250px;
+    font-size: 7.5px; /* font size is proportional to width (500:15) */
+    box-shadow: -15px -10px 10px 0px #1b103a;
+    aspect-ratio: 5 / 9;
+}
+
+.bet-list {
+    background: none;
+    margin: 0px 0.2%;
+    
+    text-align: center;
+    font-size: 2em;
+    padding-left: 1em;
+    /* border-spacing: 10px */
+}
+
+.bet-list tr td {
+    padding-bottom: 0.5em;
+}
+
+.bet-label {
+    padding-right: 1em;
+}
+
+.bettor-box-info {
+    position: relative;
+    border: none;
+    padding-left: 1em;
+    
+    /* max-width: 450px; */
+    width: 100%;
+    text-align: center;
+    
+    margin: 1em auto;
+}
+
+.bettor-box-name, .score-container {
+    margin: 0px 0.25em;
+    border: none;
+    font-size: 490%;
+    text-align: left;
+}
+
+.score-container {
+    font-size:  290%;
+    position: relative;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+}
+
+.hover-box {
+    position: absolute;
+    display: none;
+    
+    z-index: 10;
+    width: 100%;
+    height: 400%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    padding: 3%;
+    
+    font-size: 100%;
+    color: black;
+    
+    text-align: left;
+    height: auto;
+}
+
+.widget {
+    border: 0.2em solid black;
+    border-radius: 1em;
+    
+    /* width: 300px; */
+    width: 10em;
+}
+
+/* Race results */
+#race-box-wrapper {
+    margin: 0px 20px;
+    width: fit-content;
+    text-align: center;
+    float: right;
+    display: flex;
+    flex-direction: column;
+}
+
+#info-wrapper {
+    white-space: wrap;
+}
+
+#info-wrapper #main-info p {
+    margin: 15px 0px;
+}
+
+#info-wrapper div {
+    padding: 0px 20px;
+}
+
+#race-box {
+    /* background-color: #12142D;
+    border: 5px solid #a7162c; #FF0026; */
+    padding: 15px 0px;
+}
+
+#race-box tr {
+    text-align: center;
+}
+
+#driver-list p {
+    margin: 0px;
+    font-size: 18px;
+}
+
+/* Standings */
+#standings-box {
+    white-space: nowrap;
+}
+
+#standings-head {
+    background-color: #181818;
+    font-weight: bold;
+    color: white;
+}
+
+.left-panel {
+    flex: 1;
+    transition: width 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.right-panel {
+    position: relative;
+    
+    transition: transform 0.2s ease-out;
+}
+
+#toggleBtn {
+    position: relative;
+    z-index: 2;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    border: 0.03em solid black;
+    cursor: pointer;
+    border-radius: 0.3em;
+    transition: transform 0.1s ease-out;
+}
+
+.panel-hidden {
+    transform: translateX(50%) scale(0, 0.8);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#standings-list {
+    border-spacing: 0px 0.7em;
+    color: #a2adb6;
+    position: relative;
+    z-index: 1;
+    
+    white-space: wrap;
+}
+
+#standings-backer {
+    background-color: #181818;;
+    position: absolute;
+    display: none;
+    
+    width: 50px;
+    height: 650px;
+    z-index: 0;
+    /* top: 70px;
+    left: 10px; */
+}
+
+tr.standings-entry td, tr.standings-entry th {
+    border-bottom: 2px solid black;
+    /* padding: 0px 15px; */
+    
+    height: 30px;
+}
+
+tr.standings-entry td:first-child {
+    padding-left: 15px;
+}
+
+tr.standings-entry td:nth-child(2) {
+    text-align: center;
+}
+
+tr.standings-entry td:nth-child(3){
+    text-align: right;
+    padding-right: 1.5em;
+    padding-left: 0.3em;
+}
+
+tr.standings-entry:nth-child(even) {
+    background-color: #8c1717
+}
+
+tr.standings-entry:nth-child(odd):not(#standings-head) {
+    background-color: #660b0b
+}
+
+tr.standings-entry:not(:first-child) {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+}
+
+#race-box tr {
+    color: white;
+}
+
+/* Choose week and year */
+#choose-week-box {
+    text-align: center;
+}
+
+#choose-year-list {
+    margin-bottom: 10px;
+    padding: 5px 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 1em, calc(100% - 1em) 100%, 0 100%);
+    font-size: 25px;
+    border: 2px solid;
+    border-radius: 0px;
+    color: black;
+}
+
+.choose-week-button {
+    margin: 4px;
+}
+
+.choose-week-button {
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%);
+}
+
+.choose-week-button:hover {
+    background-color: #a71616;
+}
+
+.choose-week-button:active {
+    background-color: #420909;
+}
+
+#empty-drivers-message {
+    color: white;
+    text-align: center;
+}
+
+/* Button to place picks */
+#button-wrapper {
+    width: auto;
+    
+    text-align: center;
+    
+    color: white;
+}
+
+/* For the units of points */
+span {
+    font-size: 50%;
+    color: inherit;
+}
+
+/* For phone resolution */
+@media (max-width: 1429.99px) {
+    body {
+        margin: auto 50px;
+    }
+
+    #footer {
+        height: 800px;
+    }
+    
+    p {
+        font-size: 34px;
+    }
+    
+    #driver-list p {
+        font-size: 30px;
+    }
+    
+    #standings-box {
+        height: 1600px; /* Changes to adapt with js */
+    }
+    
+    #toggleBtn {
+        top: 20px;
+        left: 25px;
+        width: 80px;
+        height: 80px;
+        font-size: 50px;
+        text-align: center;
+    }
+    
+    .panel-expanded {
+        width: 95% !important;
+        font-size: 50px !important;
+    }
+    
+    .panel-expanded tr td:last-child {
+        padding-right: 2em !important;
+    }
+    
+    .btn-moved {
+        transform: translate(-150px, -90px);
+    }
+    
+    #status-message {
+        background-color: #578bff;
+        border: 5px solid #255edb;
+        border-radius: 20px;
+        
+        margin: 10px;
+        padding: 25px 0px;
+        
+        max-width: 910px;
+        
+        color: black;
+        font-size: 60px;
+        text-align: center;
+    }
+    
+    #standings-list {
+        float: left;
+        width: 50%;
+        margin: auto 10px;
+        
+        font-size: 35px;
+    }
+    
+    #standings-backer {
+        width: 80px;
+        top: 135px;
+    }
+    
+    .standings-entry {
+        height: 90px;
+    }
+    
+    #info-wrapper {
+        float: right;
+        border: 5px solid #0a0b1d;
+        border-radius: 15px;
+        margin: 30px 20px 30px auto;
+        
+        width: 39%;
+        
+        color: white;
+    }
+    
+    #info-wrapper #main-info {
+        border-bottom: 5px solid #0a0b1d;
+    }
+    
+    #info-wrapper #scoring-info {
+        line-height: 30px;
+    }
+    
+    #choose-year-list {
+        font-size: 50px;
+    }
+    
+    .choose-week-button {
+        margin: 5px;
+        border-radius: 0px;
+        
+        width: 100px;
+        height: 100px;
+        
+        font-size: 50px;
+        color: black;
+        text-align: center;
+    }
+    
+    /* Holds weekly data from both the bettors and races */
+    #results-box { /* Contains weekly and race boxes */
+        padding-bottom: 300px;
+        
+        display: block;
+        overflow: auto;
+    }
+    
+    #results-box h1 {
+        margin-left: 10px;
+    }
+    
+    #weekly-box {
+        float: left;
+        
+        width: 500px;
+    }
+    
+    #race-box-wrapper {
+        margin: 0px 40px;
+    }
+    
+    #race-box {
+        float: right;
+        border-width: 7.5px;
+        margin-right: 6px;
+        
+        width: 350px;
+        
+        color: white;
+    }
+    
+    #driver-list {
+        border-spacing: 3px;
+        margin: auto;
+    }
+    
+    #empty-drivers-message {
+        font-size: 45px;
+    }
+    
+    #button-wrapper {
+        border: 4px solid #0a0b1d;
+        border-radius: 15px;
+        margin: 20px 28px 0px;
+        padding: 0px 0px 50px;
+    }
+    
+    #button-wrapper p {
+        font-size: 40px;
+    }
+
+    .bettor-box {
+        width: 500px;
+        font-size: 15px; /* font size is proportional to width (500:15) */
+    }
+
+    #race-box .widget {
+        font-size: 30px;
+    }
+}
+
+/* For desktop resolution */
+@media (min-width: 1430px) {
+    #filler {
+        height: 140px;
+    }
+    
+    #status-message {
+        background-color: #578bff;
+        border: 5px solid #255edb;
+        border-radius: 20px;
+        
+        margin: 15px 10px;
+        padding: 25px 10px;
+        
+        width: calc(100% - 1080px - 20px);
+        max-width: calc(50% - 280px);/*545px;*/
+        
+        color: black;
+        font-size: 30px;
+        text-align: center;
+    }
+    
+    #page-name {
+        position: absolute;
+        width: 100%;
+        left: 0px;
+    }
+    
+    /* A table of the current users' scores */
+    #standings-box { /* Contains a list of all users in order of highest score */
+        float: left;
+        padding: 10px;
+        min-width: 600px;
+        max-width: 800px;
+        width: calc(40% - 20px);
+        font-size: max(calc(0.2vw - 1.8px), 1px);
+    }
+    
+    #toggleBtn {
+        top: 57px;
+        left: 25px;
+        width: 30px;
+        height: 30px;
+        font-size: 19px;
+    }  
+    
+    .panel-expanded {
+        width: 100% !important;
+    }
+    
+    .panel-expanded tr td:last-child {
+        padding-right: 2.5em !important;
+    }
+    
+    .btn-moved {
+        transform: translate(-55px, -100px);
+    }      
+    
+    #standings-list {
+        width: calc(100% - 250px - 20px);
+        font-size: min(1.45vw, 30px);
+        float: left;
+    }
+    
+    #info-wrapper {
+        border: 4px solid #0a0b1d;
+        border-radius: 10px;
+        /* margin: 20px auto; */
+        /* width: calc(50% - 10px); */
+        width: 246px;
+        float: right; /* CHANGE */
+        color: white;
+        font-size: 30px;
+    }
+    
+    #info-wrapper #main-info {
+        border-bottom: 4px solid #0a0b1d;
+    }
+    
+    #info-wrapper #scoring-info {
+        line-height: 20px;
+    }
+    
+    tr.standings-entry td {
+        height: 45px;
+    }
+    
+    /* An interface to choose from previous weeks */
+    #choose-week-box { /* Contains a list of all races denoted by numbers */
+        float: right;
+        padding-bottom: 10px;
+        /*width: 100%; /* CHANGE */
+    }
+    
+    #choose-week-list {
+        display: block;
+        overflow: auto;
+        margin: 10px 73px;
+        height: fit-content;
+    }
+    
+    .choose-week-button {
+        float: left;
+        /* border-radius: 35%; */
+        width: 53px;
+        aspect-ratio: 1;
+        font-size: 26px;
+    }
+    
+    /* Holds weekly data from both the bettors and races */
+    #results-box { /* Contains weekly and race boxes */
+        float: right;
+        /* padding: 10px; */
+        padding-bottom: 100px;
+        display: block;
+        overflow: auto;
+        height: auto;
+        min-width: 600px;
+    }
+    
+    #race-box {
+        margin: 8px 0px;
+        width: 216px;
+        height: auto;
+    }
+    
+    #driver-list {
+        border-spacing: 3px;
+        margin: auto;
+    }
+    
+    #empty-drivers-message {
+        font-size: 20px;
+    }
+    
+    /* Contains all bets for that week */
+    /* Contains the race results for that week */
+    #weekly-box {
+        float: left;
+        width: calc(100% - 305px);
+        height: auto;
+        margin-left: 20px;
+    }
+    
+    #plate-2-list {
+        margin: auto;
+        padding: 3px;
+        
+        column-span: 2;
+    }
+    
+    #button-wrapper {
+        border: 3px solid #0a0b1d;
+        border-radius: 10px;
+        margin: 25px 10px 0px;
+        padding: 10px 0px 20px;
+    }
+    
+    #button-wrapper p {
+        font-size: 25px;
+    }
+}
+
+/* For winners */
+.imp {
+    border-color: rgb(0, 217, 255);
+    border-width: 0.3em;
+}
+
+#submit-button {
+    border: 0.1em solid black;
+}

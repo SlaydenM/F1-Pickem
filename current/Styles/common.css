@@ -1,0 +1,180 @@
+* {
+    font-family: "Audiowide";
+}
+
+body {
+    background-image: url("../Images/F1Pickem_background.png");
+    /* background-image: url("Images/F1Pickem_background.png"); */
+    background-size: 600px;
+}
+
+button {
+    /* text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    margin: 0em;
+    padding-block: 0px;
+    padding-inline: 0px; */
+    
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    /* background-color: buttonface; */
+    /* margin: 0em; */
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+
+#page-name {
+    color: black;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+
+.plate-1 {
+    margin: 5px 0px;
+    width: calc(60% - 30px);
+    background-image: repeating-linear-gradient(32deg, #1b2b5a, #3b4973 25%, #1b2b5a 50%);
+    border: 5px solid black;
+    border-radius: 1vw;
+}
+
+h1 {
+    margin: 10px auto;
+    color: #a2adb6;
+    font-size: 30px;
+    text-align: center;
+}
+
+.plate-head {
+    padding: 10px;
+    font-size: 50px;
+}
+
+.driver-data {
+    background-color: black;
+    z-index: 1;
+    
+    color: black;
+    user-select: none;
+}
+
+.widget {
+    border: 0.1em solid black;
+    border-radius: 0.6em;
+    
+    width: 300px;
+    display: flex;
+    aspect-ratio: 3 / 2;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.widget-shadow {
+    box-shadow: -5px -5px 12px 0px #000000a1;
+}
+
+.info-head {
+    color: #d70021;
+    text-align: center;
+}
+
+img {
+    pointer-events: none;
+}
+
+/* For phone resolution */
+@media (max-width: 1429.99px) {
+    body {
+        width: 1000px;
+    }
+    
+    /* Logo and/or title in the corner */
+    #page-name {
+        padding: 10px;
+        width: 950px;
+
+        font-size: 100px;
+    }
+
+    #submit-button {
+        background-color: #578bff; /*#FFEA00;*/
+        padding: 0px;
+        margin: auto;
+        
+        color: black;
+        font-size: 35px;
+        text-wrap: wrap;
+    }
+
+    h1 {
+        margin: 15px 0px;
+        font-size: 45px;
+    }
+    
+    .plate-1 {
+        margin: 10px 0px;
+
+        width: 950px;
+
+        border-radius: 40px;
+    }
+}
+
+/* For desktop resolution */
+@media (min-width: 1430px) {
+    body {
+        margin: auto 50px;
+        min-width: 1550px;
+    }
+    
+    #page-name {
+        margin: 20px auto;
+
+        font-size: 80px;
+    }
+
+    #welcome-box, #race-info{
+        padding: 10px 0px;
+        width: calc(100% - 10px);
+    }
+
+    #submit-button {
+        background-color: #578bff; /*#FFEA00;*/
+        margin:auto;
+        
+        font-size: 20px;
+        text-wrap: wrap;
+    }
+}
+
+
+#submit-button:hover {
+    background-color: #59bcff;
+}
+
+#submit-button:active {
+    background-color: #25468f;
+}

@@ -1,0 +1,96 @@
+#error {
+    color: red;
+}
+
+#info {
+    color: black;
+}
+
+/* Phone Resolution */
+@media (max-width: 1000px) {
+    .plate-1 {
+        margin: 40px auto 0px;
+        padding: 20px;
+        
+        width: 850px;
+        height: 400px;
+        text-align: center;
+    }
+    
+    input {
+        margin-bottom: 10px;
+        font-family: "Audiowide";
+    }
+    
+    .label {
+        font-size: 50px;
+    }
+    
+    .input {
+        width: 475px;
+        height: 70px;
+        font-size: 50px;
+    }
+
+    #login1 {
+        background-color: #578bff;
+        margin: 10px auto;
+
+        width: 400px;
+        height: 90px;
+
+        font-size: 55px;
+        vertical-align: auto;
+        color: black;
+        border: 2px solid black;
+    }
+
+    #info, #error {
+        font-size: 30px;
+    }
+}
+
+/* Desktop Resolution */
+@media (min-width: 1000.01px) {
+    .plate-1 {
+        margin: 80px auto 0px;
+        padding: 20px;
+        
+        width: 350px;
+        height: 183px;
+        text-align: center;
+    }
+
+    input {
+        font-family: "Audiowide";
+    }
+
+    .label {
+        font-size: 25px;
+    }
+
+    .input {
+        width: 175px;
+        height: 30px;
+        font-size: 25px;
+    }
+
+    #login1 {
+        background-color: #578bff;
+        margin: auto;
+
+        width: 175px;
+        height: 40px;
+
+        font-size: 20px;
+        vertical-align: auto;
+    }
+}
+
+#login1:hover {
+    background-color: #59bcff;
+}
+
+#login1:active {
+    background-color: #25468f;
+}

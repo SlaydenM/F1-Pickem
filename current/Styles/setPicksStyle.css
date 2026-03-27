@@ -1,0 +1,394 @@
+.driver-data {
+    position: absolute;
+
+    cursor: move;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+#bet-wrapper {
+    aspect-ratio: 5 / 9;
+}
+
+.bettor-box-poly {
+    position: absolute;
+    border-left: 1em solid #8c1717;
+    box-shadow: -6px -10px 10px 0px #1b103a;
+}
+
+.bettor-box-poly polygon {
+    fill:rgb(80, 80, 80);
+    stroke: black;
+    stroke-width: 0.1em;
+}
+
+.bet-box {
+    background-color: #a00018;
+    position: relative;
+}
+
+.driver-tooltip-wrapper {
+    position: absolute;
+    
+    top: 3px;
+    right: 3px;
+    width: 16%;
+    height: 24%;
+
+    font-size: 90%;
+    color: rgb(87, 0, 0);
+    text-align: right; 
+}
+
+.driver-tooltip-wrapper:hover .driver-tooltip-plate { /* Make the tooltip visible on hover */
+    visibility: visible;
+}
+
+.driver-tooltip-plate {
+    visibility: hidden;
+    position: absolute;
+    background-color: #181818;
+
+    right: -6px;
+    top: -6px;
+    z-index: auto;
+    cursor: move;
+    
+    color: #fff;
+    font-size: 20px;  
+    text-align: left;
+}
+
+.driver-tooltip-data {
+    border-spacing: 0px;
+    cursor: move;
+    color: white;
+}
+
+table.driver-tooltip-data th {
+    border-bottom: 2px solid rgb(87, 0, 0);
+    color: #717171
+}
+
+table.driver-tooltip-data th:nth-child(2), table.driver-tooltip-data td:nth-child(2) { /* Middle column */
+    border-right: 2px solid rgb(87, 0, 0);
+    border-left: 2px solid rgb(87, 0, 0);
+}
+
+table.driver-tooltip-data th:not(:first-child), table.driver-tooltip-data td:not(:first-child) { /* Middle column */
+    text-align: right;
+    padding: 4px 5px 4px 0px;
+}
+
+.driver-box {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+#driver-data-overall {
+    background-color: black;
+    cursor: auto;
+}
+
+#driver-data-overall .driver-tooltip-data td:last-child {
+    font-size: 15px;
+    padding-left: 2px;
+}
+
+#selection-plate {
+    padding-top: 15px;
+}
+
+.plate-2 {
+    padding-bottom: 10px;
+}
+
+#bet-plate {
+    margin: auto;
+}
+
+#link {
+    padding: 50px auto;
+    
+    width: 100%;
+    
+    text-align: center;
+    font-size: 30px;
+    color: white;
+}
+
+a {
+    color:#d70021;
+}
+
+/* Phone Resolution */
+@media (max-width: 1429.99px) {
+    body {
+        margin: auto 50px;
+    }
+    
+    #container {
+        max-width: 960px;
+    }
+    
+    .plate-head {
+        height: fit-content;
+        
+        font-size: 50px;
+        text-align: center;
+    }
+    
+    #bet-plate {
+        float: right;
+        
+        height: fit-content;
+        width: 400px;
+    }
+    
+    #selection-plate { /* Cannot modify float or position without messing with draggable property */
+        height: fit-content;
+        width: 537px;
+    }
+    
+    #selection-list {
+        /* border: 2px solid white;  */
+        padding-left: 9px;
+        padding-top: 12px;
+        display: block;
+        overflow: auto;
+    }
+    
+    img {
+        border-radius: 14px;
+    }
+    
+    #bet-wrapper {
+        margin-bottom: -100px;
+    }
+    
+    .widget { /* Scale ALL related values by 1.25 */
+        border: 3.75px solid black;
+        border-radius: 18.75px;
+        font-size: 1px;
+        width: 250px;
+    }
+    
+    .snap-box {
+        z-index: 0;
+        
+        font-size: 50px;
+    }
+    
+    .bet-box { /* The three boxes to drag bets */
+        margin: 15px 120px;
+        
+        font-size: 35px;
+        line-height: 1.5;
+    }
+    
+    #bet1 {
+        margin-top: 50px;
+    }
+    
+    .bettor-box-poly {
+        width: 350px;
+        margin: -40px 0px 0px 20px;
+    }
+    
+    #button-info-wrapper {
+        border: 4px solid #0a0b1d;
+        border-radius: 10px;
+        margin: 30px 10px 23px;
+    }
+    
+    #button-wrapper {
+        margin: 38px auto;
+    }
+    
+    #info-wrapper {
+        border-top: 4px solid #0a0b1d;
+        padding: 0px 4%;
+        
+        width: auto;
+        
+        color: white;
+        line-height: 1.5;
+        font-size: 26px;
+    }
+    
+    #info-wrapper ul {
+        margin: -10px;
+    }
+    
+    #link {
+        border-top: 4px solid #0a0b1d;
+    }
+    
+    .driver-wrapper {
+        float: left;
+        margin: 0px 2px 12px;
+    }
+    
+    .driver-data {
+        font-size: 25px;
+    }
+    
+    .driver-tooltip-data th, .driver-tooltip-data td {
+        font-size: 20.5px
+    }
+    
+    #driver-data-overall .driver-tooltip-data td:last-child {
+        font-size: 15px;
+    }
+    
+    table.driver-tooltip-data th, table.driver-tooltip-data td {
+        padding: 3px;
+    }
+    
+    span p {
+        font-size: 20px;
+        padding: 0px 10px;
+    }
+}
+
+/* Desktop Resolution 768*/
+@media (min-width: 1430px) {
+    #container {
+        min-width: 1100px;
+    }
+    
+    .plate-1 {
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+        
+    #selection-plate, #bet-plate {
+        min-width: 534px;
+        width: 49.6%;
+        box-sizing: border-box;
+    }
+    
+    .plate-head {
+        height: fit-content;
+        
+        font-size: 46px;
+        text-align: center;  
+    }
+    
+    #bet-plate {
+        float: right;
+        
+        min-height: 600px;
+        height: fit-content;
+    }
+    
+    #selection-plate { /* Cannot modify float or position without messing with draggable property */
+        height: fit-content;
+    }
+    
+    #selection-list {
+        display: block;
+        overflow: auto; 
+        
+        text-align: center;
+    }
+    
+    img {
+        border-radius: 10px;
+    }
+    
+    .widget {
+        border: 3px solid black; 
+        border-radius: 15px;
+        box-sizing: border-box;
+        
+        width: 200px;
+    }
+    
+    .snap-box {
+        z-index: 0;
+        
+        font-size: 35px;
+    }
+    
+    #bet-wrapper {
+        position: absolute;
+        float: left;
+        
+        margin: 80px;
+    }
+    
+    .bet-box { /* The three boxes to drag bets */
+        margin: 15px 0px;
+        
+        font-size: 30px;
+        line-height: 1.5;
+    }
+    
+    #bet1 {
+        margin-top: 40px;
+    }
+    
+    .bettor-box-poly {
+        width: 275px;
+        margin: 10px 0px 0px -80px;
+    }
+    
+    #button-info-wrapper {
+        border: 3px solid #0a0b1d;
+        border-radius: 10px;
+        margin: 0px 20px 45px 300px;
+        
+        min-width: 210px;
+    }
+    
+    #button-wrapper {
+        margin: 25px auto;
+        
+        width: auto;
+        
+        text-align: center;
+    }
+    
+    #info-wrapper {
+        border-top: 3px solid #0a0b1d;
+        padding: 10px 4%;
+        
+        width: auto;
+        
+        color: white;
+        line-height: 1.5;
+        font-size: 20px;
+    }
+    
+    #link {
+        border-top: 3px solid #0a0b1d;
+    }
+    
+    .driver-wrapper {
+        display: inline-block;
+        margin: 0px 1.2% 12px;
+    }
+
+    .driver-tooltip-data {
+        font-size: 17px;
+    }
+    
+    span p {
+        font-size: 17px;
+        padding: 0px 5px;
+    }
+}
+
+#button-wrapper p {
+    margin: 20px 0px -10px;
+    
+    color: red;
+    font-size: 20px;
+}
+
+.widget {
+    box-sizing: border-box;
+}
