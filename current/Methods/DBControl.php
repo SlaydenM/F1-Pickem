@@ -1,9 +1,5 @@
 <?php
 
-$excludedUsers = [
-
-];
-
 // Database credentials
 /*
 $DB_HOST = "localhost";

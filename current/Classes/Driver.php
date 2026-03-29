@@ -5,29 +5,32 @@ class Driver {
     private $team;
     private $number;
     private $position;
-
-    public function __construct($name=null, $team=null, $number=0, $position=0) {
+    private $year;
+    
+    public function __construct($name=null, $team=null, $number=0, $position=0, $year=null) {
         $this->setName($name);
         $this->setTeam($team);
         $this->setNumber($number);
         $this->setPosition($position);
+        $this->setYear($year);
     }
 
     public function getNumWins($conn, $DB_NAME, $sessionKey) {
         /*
         Returns an array (size 3) of the number of times the driver has won each [1st, 10th, 20th]
-        Counts all drivers across the season (giver sessionKey) where position is [1st, 10th, 20th] and winner id is self->id
+        Counts all drivers across the season (given year or sessionKey) where position is [1st, 10th, 20th] and winner id is self->id
         */
         $numWins = [];
         try {
+            $yearKey = $this->getYear() !== null ? ($this->getYear() - 2023) * 1000 : floor($sessionKey / 1000) * 1000;
             foreach ([1, 10, 20] as $position) {
                 $query = "SELECT COUNT(*) FROM $DB_NAME.drivers WHERE sessionKey > :yearKey AND position = :position AND number = :number"; // Calculate across the season
                 $stmt = $conn->prepare($query);
                 $stmt->execute([
-                    'yearKey' => floor($sessionKey / 1000) * 1000, // Within this season
+                    'yearKey' => $yearKey,
                     'position' => $position,
                     'number' => $this->getNumber()
-                ]); 
+                ]);
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $numWins[] = $row['COUNT(*)']; // Add total to number of wins
             }
@@ -67,6 +70,10 @@ class Driver {
     public function getPosition() { return $this->position; }
 
     public function setPosition($position) { $this->position = $position; }
+
+    public function getYear() { return $this->year; }
+
+    public function setYear($year) { $this->year = $year; }
 }
 
 ?>

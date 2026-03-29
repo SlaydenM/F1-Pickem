@@ -33,13 +33,12 @@ try {
     // Print how long is left for bonus
     $bonuses = [1.50, 1.25, 1.10, 1.00, 0.50]; // Bonus values
     $bonus = 1; // Default 1
-    // CHANGE. FIRST WEEK OF 2026 GETS NO BONUS BC IM SILLY
-    // for ($r = 0; $r < count($weekend->races); $r++) { // Search the race        
-    //     if ($timeNow < $weekend->races[$r]->dateStart) { // When the time is before the next race
-    //         $bonus = $bonuses[$r];
-    //         break;
-    //     }
-    // }
+    for ($r = 0; $r < count($weekend->races); $r++) { // Search the race        
+        if ($timeNow < $weekend->races[$r]->dateStart) { // When the time is before the next race
+            $bonus = $bonuses[$r];
+            break;
+        }
+    }
     
     // Create an object
     $bettor = new Bettor($userID, $bets, bonus: $bonus);

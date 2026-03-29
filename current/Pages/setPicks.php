@@ -153,7 +153,7 @@
             <div id="selection-list">
                 <?php
                     $betLabels = ["1st", "10th", $last_place]; // Positions
-                    $contestants = getContestants();
+                    $contestants = getContestants($year);
                     $mostWinsNums = [0, 0, 0];
                     $mostWinsNames = ["Unknown", "Unknown", "Unknown"];
                     
@@ -166,7 +166,7 @@
                         echo
                         "<div class='driver-wrapper'>
                             <div class='draggable driver-data widget' id='" . $driver->getNumber() . "'>
-                                <img class='logo' src='../Images/F1Pickem_driver_logos/f1_" . $driver->getNumber() . ".png?v=$VERSION'>
+                                <img class='logo' src='../Images/driver_logos/" . $year . "/f1_" . $driver->getNumber() . ".png?v=$VERSION'>
                                 <div class='driver-tooltip-wrapper'>
                                     <img src='../Images/tooltip.png'/>
                                     <span class='widget driver-tooltip-plate'>
@@ -203,7 +203,7 @@
                     echo
                     "<div class='driver-wrapper'>
                         <div class='draggable driver-data driver-data-extra widget' id='100'>
-                            <img class='logo' src='../Images/F1Pickem_driver_logos/f1_100.png?v=$VERSION'>
+                            <img class='logo' src='../Images/driver_logos/" . $year . "/f1_100.png?v=$VERSION'>
                             <div class='driver-tooltip-wrapper'>
                                 <img src='../Images/tooltip.png'/>
                                 <span class='widget driver-tooltip-plate'>

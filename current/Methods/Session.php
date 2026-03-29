@@ -43,96 +43,99 @@ function getRaceData(PDO $conn, $DB_NAME, int $sessionKey, $type="G") {
 }
 
 // Returns contestant drivers before the weekend
-function getContestants(): array {  
-    $contestants = [ // 0 = 2024, 1 = 2025, 2 = 2026
+function getContestants(int $year): array {  
+    $contestants = [ // contains roster entries for the requested year
+        '2026' => [
+            new Driver("Lando Norris",      "MCLAREN",       1, 0, 2026),
+            new Driver("Oscar Piastri",     "MCLAREN",      81, 0, 2026),
+            new Driver("George Russell",    "MERCEDES",     63, 0, 2026),
+            new Driver("Andrea Antonelli",  "MERCEDES",     12, 0, 2026),
+            new Driver("Max Verstappen",    "RED BULL",      3, 0, 2026),
+            new Driver("Isack Hadjar",      "RED BULL",      6, 0, 2026),
+            new Driver("Lewis Hamilton",    "FARRARI",      44, 0, 2026),
+            new Driver("Charles Leclerc",   "FERRARI",      16, 0, 2026),
+            new Driver("Alexander Albon",   "WILLIAMS",     23, 0, 2026),
+            new Driver("Carlos Sainz",      "WILLIAMS",     55, 0, 2026),
+            new Driver("Oliver Bearman",    "HAAS",         87, 0, 2026),
+            new Driver("Esteban Ocon",      "HAAS",         31, 0, 2026),
+            new Driver("Lance Stroll",      "ASTON MARTIN", 18, 0, 2026),
+            new Driver("Fernando Alonso",   "ASTON MARTIN", 14, 0, 2026),
+            new Driver("Pierre Gasly",      "ALPINE",       10, 0, 2026),
+            new Driver("Franco Colapinto",  "ALPINE",       43, 0, 2026),
+            new Driver("Liam Lawson",       "RACING BULLS", 30, 0, 2026),
+            new Driver("Arvid Lindblad",    "RACING BULLS", 41, 0, 2026),
+            new Driver("Nico Hulkenberg",   "AUDI",         27, 0, 2026),
+            new Driver("Gabriel Bortoletto","AUDI",         05, 0, 2026),
+            new Driver("Valtteri Bottas",   "CADILLAC",     77, 0, 2026),
+            new Driver("Sergio Perez",      "CADILLAC",     11, 0, 2026),
+            
+            new Driver("Extra",             "Driver",      100, 0, 2026),
+        ],
+        '2025' => [
+            new Driver("Lando Norris",      "MCLAREN",       4, 0, 2025),
+            new Driver("Oscar Piastri",     "MCLAREN",      81, 0, 2025),
+            new Driver("Max Verstappen",    "RED BULL",      1, 0, 2025),
+            new Driver("Yuki Tsunoda",      "RED BULL",    122, 0, 2025), // Switched with Liam 4/1/25 weekend
+            new Driver("Carlos Sainz",      "WILLIAMS",     55, 0, 2025),
+            new Driver("Alexander Albon",   "WILLIAMS",     23, 0, 2025),
+            new Driver("Isack Hadjar",      "RACING BULLS",  6, 0, 2025),
+            new Driver("Liam Lawson",       "RACING BULLS",130, 0, 2025), // Switched with Yuki 4/1/25 weekend
+            new Driver("Pierre Gasly",      "ALPINE",       10, 0, 2025),
+            new Driver("Franco Colapinto",  "ALPINE",      143, 0, 2025), // Replaced Jack 5/16/25 weekend
+            new Driver("Fernando Alonso",   "ASTON MARTIN", 14, 0, 2025),
+            new Driver("Lance Stroll",      "ASTON MARTIN", 18, 0, 2025),
+            new Driver("Charles Leclerc",   "FERRARI",      16, 0, 2025),
+            new Driver("Lewis Hamilton",    "FARRARI",      44, 0, 2025),
+            new Driver("Oliver Bearman",    "HAAS",         87, 0, 2025),
+            new Driver("Esteban Ocon",      "HAAS",         31, 0, 2025),
+            new Driver("Nico Hulkenberg",   "KICK SAUBER",  27, 0, 2025),
+            new Driver("Gabriel Bortoleto", "KICK SAUBER",   5, 0, 2025),
+            new Driver("Andrea Antonelli",  "MERCEDES",     12, 0, 2025),
+            new Driver("George Russell",    "MERCEDES",     63, 0, 2025),
+            
+            // Outdated drivers 2025
+            new Driver("Liam Lawson",       "RED BULL",     30, 0, 2025),
+            new Driver("Yuki Tsunoda",      "RACING BULLS", 22, 0, 2025),
+            new Driver("Yuki Tsunoda",      "RACING BULLS", 22, 0, 2025),
+            new Driver("Jack Doohan",       "ALPINE",        7, 0, 2025), // Replaced with Franco 5/16/25 weekend
         
-        // 2026
-        new Driver("Lando Norris",      "MCLAREN",     204),
-        new Driver("Oscar Piastri",     "MCLAREN",     281),
-        new Driver("George Russell",    "MERCEDES",     63),
-        new Driver("Andrea Antonelli",  "MERCEDES",     12),
-        new Driver("Max Verstappen",    "RED BULL",      1),
-        new Driver("Isack Hadjar",      "RED BULL",    206),
-        new Driver("Lewis Hamilton",    "FARRARI",      44),
-        new Driver("Charles Leclerc",   "FERRARI",      16),
-        new Driver("Alexander Albon",   "WILLIAMS",     23),
-        new Driver("Carlos Sainz",      "WILLIAMS",     55),
-        new Driver("Oliver Bearman",    "HAAS",         87),
-        new Driver("Esteban Ocon",      "HAAS",         31),
-        new Driver("Lance Stroll",      "ASTON MARTIN", 18),
-        new Driver("Fernando Alonso",   "ASTON MARTIN", 14),
-        new Driver("Pierre Gasly",      "ALPINE",       10),
-        new Driver("Franco Colapinto",  "ALPINE",      143),
-        new Driver("Liam Lawson",       "RACING BULLS",230),
-        new Driver("Arvid Lindblad",    "RACING BULLS",241),
-        new Driver("Nico Hulkenberg",   "AUDI",        227),
-        new Driver("Gabriel Bortoletto","AUDI",        205),
-        new Driver("Valtteri Bottas",   "CADILLAC",    277),
-        new Driver("Sergio Perez",      "CADILLAC",    211),
-        
-        // 2025
-        new Driver("Lando Norris",      "MCLAREN",       4),
-        new Driver("Oscar Piastri",     "MCLAREN",      81),
-        new Driver("Max Verstappen",    "RED BULL",      1),
-        new Driver("Yuki Tsunoda",      "RED BULL",    122), // Switched with Liam 4/1/25 weekend
-        new Driver("Carlos Sainz",      "WILLIAMS",     55),
-        new Driver("Alexander Albon",   "WILLIAMS",     23),
-        new Driver("Isack Hadjar",      "RACING BULLS",  6),
-        new Driver("Liam Lawson",       "RACING BULLS",130), // Switched with Yuki 4/1/25 weekend
-        new Driver("Pierre Gasly",      "ALPINE",       10),
-        new Driver("Franco Colapinto",  "ALPINE",      143), // Replaced Jack 5/16/25 weekend
-        new Driver("Fernando Alonso",   "ASTON MARTIN", 14),
-        new Driver("Lance Stroll",      "ASTON MARTIN", 18),
-        new Driver("Charles Leclerc",   "FERRARI",      16),
-        new Driver("Lewis Hamilton",    "FARRARI",      44),
-        new Driver("Oliver Bearman",    "HAAS",         87),
-        new Driver("Esteban Ocon",      "HAAS",         31),
-        new Driver("Nico Hulkenberg",   "KICK SAUBER",  27),
-        new Driver("Gabriel Bortoleto", "KICK SAUBER",   5),
-        new Driver("Andrea Antonelli",  "MERCEDES",     12),
-        new Driver("George Russell",    "MERCEDES",     63),
-        
-        // Outdated drivers 2025
-        new Driver("Liam Lawson",       "RED BULL",     30),
-        new Driver("Yuki Tsunoda",      "RACING BULLS", 22),
-        new Driver("Yuki Tsunoda",      "RACING BULLS", 22),
-        new Driver("Jack Doohan",       "ALPINE",        7), // Replaced with Franco 5/16/25 weekend
-        
-        // 2024
-        new Driver("Max Verstappen",    "RED BULL",      1),
-        new Driver("Sergio Perez",      "RED BULL",     11),
-        new Driver("Franco Colapinto",  "WILLIAMS",     43),
-        new Driver("Alexander Albon",   "WILLIAMS",     23),
-        new Driver("Liam Lawson",       "RACING BULLS", 30),
-        new Driver("Yuki Tsunoda",      "RACING BULLS", 22),
-        new Driver("Lando Norris",      "MCLAREN",       4),
-        new Driver("Oscar Piastri",     "MCLAREN",      81),
-        new Driver("Pierre Gasly",      "ALPINE",       10),
-        new Driver("Esteban Ocon",      "ALPINE",       31),
-        new Driver("Fernando Alonso",   "ASTON MARTIN", 14),
-        new Driver("Lance Stroll",      "ASTON MARTIN", 18),
-        new Driver("Charles Leclerc",   "FERRARI",      16),
-        new Driver("Carlos Sainz",      "FARRARI",      55),
-        new Driver("Kevin Magnussen",   "HAAS",         20),
-        new Driver("Nico Hulkenberg",   "HAAS",         27),
-        new Driver("Zhou Guanyu",       "KICK SAUBER",  24),
-        new Driver("Valtteri Bottas",   "KICK SAUBER",  77),
-        new Driver("Lewis Hamilton",    "MERCEDES",     44),
-        new Driver("George Russell",    "MERCEDES",     63),
-        
-        // Outdated drivers 2024
-        new Driver("Oliver Bearman",    "HAAS",         38),
-        new Driver("Daniel Ricciardo",  "RACING BULLS",  3),
-        new Driver("Logan Sargeant",    "WILLIAMS",      2),
-        
-        // Extra driver
-        new Driver("Extra",             "Driver",      100)
+            new Driver("Extra",             "Driver",      100, 0, 2025)
+        ],
+        '2024' => [
+            new Driver("Max Verstappen",    "RED BULL",      1, 0, 2024),
+            new Driver("Sergio Perez",      "RED BULL",     11, 0, 2024),
+            new Driver("Franco Colapinto",  "WILLIAMS",     43, 0, 2024),
+            new Driver("Alexander Albon",   "WILLIAMS",     23, 0, 2024),
+            new Driver("Liam Lawson",       "RACING BULLS", 30, 0, 2024),
+            new Driver("Yuki Tsunoda",      "RACING BULLS", 22, 0, 2024),
+            new Driver("Lando Norris",      "MCLAREN",       4, 0, 2024),
+            new Driver("Oscar Piastri",     "MCLAREN",      81, 0, 2024),
+            new Driver("Pierre Gasly",      "ALPINE",       10, 0, 2024),
+            new Driver("Esteban Ocon",      "ALPINE",       31, 0, 2024),
+            new Driver("Fernando Alonso",   "ASTON MARTIN", 14, 0, 2024),
+            new Driver("Lance Stroll",      "ASTON MARTIN", 18, 0, 2024),
+            new Driver("Charles Leclerc",   "FERRARI",      16, 0, 2024),
+            new Driver("Carlos Sainz",      "FARRARI",      55, 0, 2024),
+            new Driver("Kevin Magnussen",   "HAAS",         20, 0, 2024),
+            new Driver("Nico Hulkenberg",   "HAAS",         27, 0, 2024),
+            new Driver("Zhou Guanyu",       "KICK SAUBER",  24, 0, 2024),
+            new Driver("Valtteri Bottas",   "KICK SAUBER",  77, 0, 2024),
+            new Driver("Lewis Hamilton",    "MERCEDES",     44, 0, 2024),
+            new Driver("George Russell",    "MERCEDES",     63, 0, 2024),
+            
+            // Outdated drivers 2024
+            new Driver("Oliver Bearman",    "HAAS",         38, 0, 2024),
+            new Driver("Daniel Ricciardo",  "RACING BULLS",  3, 0, 2024),
+            new Driver("Logan Sargeant",    "WILLIAMS",      2, 0, 2024),
+            new Driver("Extra",             "Driver",      100, 0, 2024)
+        ]
     ];
-    return $contestants;
+    
+    return $contestants[strval($year)];
 }
 
 // Returns the latest list of winners
-function getWinners($DB_NAME, int $sessionKey, $num_drivers=20): array {
+function getWinners($DB_NAME, int $sessionKey, $num_drivers=20, $year=2026): array {
     $winners = [];
     try {
         $conn = getDatabaseConnection();
@@ -140,11 +143,11 @@ function getWinners($DB_NAME, int $sessionKey, $num_drivers=20): array {
         if (!getDatabaseDrivers($conn, $DB_NAME, $winners, $sessionKey)) {
             // Fallback to the data on the web
             $winners = getWebDrivers($sessionKey);
-            // print_r($winners);
+            
             // From DBControl
             if (!empty($winners)) { // Empty on first week of the year
                 // Update driver numbers for replacements
-                $contestants = array_slice(getContestants(), 19);
+                $contestants = array_slice(getContestants(getYear($sessionKey)), $num_drivers - 1);
                 $replacements = [];
                 foreach ($contestants as $c) { // Find replacements
                     $num = $c->getNumber();
@@ -154,9 +157,10 @@ function getWinners($DB_NAME, int $sessionKey, $num_drivers=20): array {
                 }
                 foreach ($winners as $w) { // Update driver numbers
                     foreach ($replacements as $r) {
-                        if ($w->getNumber() === $r % 100) // If winner is a replacement currently
+                        if ($w->getYear() === $year && $w->getNumber() === $r % 100) { // If winner is a replacement currently
                             $w->setNumber($r);
                             break;
+                        }
                     }
                 }
                 insertWinners($conn, $winners, $sessionKey);
@@ -234,7 +238,7 @@ function getDatabaseDrivers(PDO $conn, $DB_NAME, array& $winners, int $sessionKe
             $position = $row['position'];
             
             // Store data in object
-            $d = new Driver($name, $team, $number, $position);
+            $d = new Driver($name, $team, $number, $position, getYear($sessionKey));
             $winners[] = $d;
         }
     } catch (PDOException $e) {
@@ -285,13 +289,12 @@ function getWebDrivers(int $sessionKey): array {
     $results = $races[0]['Results'] ?? [];
 
     foreach ($results as $result) {
-        $name = $result['Driver']['givenName'] . ' ' . $result['Driver']['familyName'];
-        $team = $result['Constructor']['name'];
-        $number = (int) $result['number'];
-        $position = (int) $result['position'];
+            $name = $result['Driver']['givenName'] . ' ' . $result['Driver']['familyName'];
+            $team = $result['Constructor']['name'];
+            $number = (int) $result['number'];
+            $position = (int) $result['position'];
 
-        $drivers[] = new Driver($name, $team, $number, $position);
-    }
-
+            $drivers[] = new Driver($name, $team, $number, $position, getYear($sessionKey));
+        }
     return $drivers;
 }

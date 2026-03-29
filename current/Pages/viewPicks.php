@@ -135,7 +135,7 @@
         <?php }
         else {
             function printBettorBox($bettor, $bettors, $correctBets, $betLabels, $userID) {
-                global $conn, $DB_NAME, $sessionKeyInstance, $VERSION;
+                global $conn, $DB_NAME, $sessionKeyInstance, $year, $VERSION;
                 
                 $bets = $bettor->getBets();
                 $identity = ($bettor->getID() == $userID) ? "self" : "others"; // If the bettor is the viewer
@@ -149,7 +149,7 @@
                         <h2 class='bettor-box-name'>{$bettor->getName()}</h2>
                         <table class='bet-list'>
                             <tbody>";
-                $contestants = getContestants();
+                $contestants = getContestants($year);                
                 for ($betIndex = 0; $betIndex < 3; $betIndex++) { // For each bet
                     // Find driver with specified number
                     $driverIndex = 0;
@@ -165,7 +165,7 @@
                                 class='driver-data widget widget-shadow ". 
                                     ((count($correctBets) > 0 && 
                                     $correctBets[array_search($bettor, $bettors)][$betIndex]) ? 'imp' : '') ."' 
-                                src='../Images/F1Pickem_driver_logos/f1_". $contestants[$driverIndex]->getNumber() .".png?v=$VERSION'>
+                                src='../Images/driver_logos/" . $year . "/f1_". $contestants[$driverIndex]->getNumber() .".png?v=$VERSION'>
                         </td>
                     </tr>";
                 } 
@@ -198,7 +198,7 @@
                 <div id="plate-2-list">
                     <?php
                         $betLabels = ["1st", "10th", $last_place];
-                        $winners = getWinners($DB_NAME, $sessionKeyInstance, $num_drivers);
+                        $winners = getWinners($DB_NAME, $sessionKeyInstance, $num_drivers, $year);
                         $correctBets = getCorrectBets($bettors, $winners);
                         
                         // Display each bettor
@@ -219,9 +219,9 @@
                             else {
                                 foreach ($winners as $d) {
                                     $position++;
-                                    if ($position > 20)
+                                    if ($position > $num_drivers)
                                         break;
-                                    $important = ($position == 1 || $position == 10 || $position == min(20, count($winners))) ? "imp" : "";
+                                    $important = ($position == 1 || $position == 10 || $position == min($num_drivers, count($winners))) ? "imp" : "";
                                     
                                     echo
                                     "<tr>
@@ -231,7 +231,7 @@
                                         <td>
                                             <img 
                                                 class='driver-data widget widget-shadow $important' 
-                                                src='../Images/F1Pickem_driver_logos/f1_" . $d->getNumber() . ".png?v=$VERSION'
+                                                src='../Images/driver_logos/" . $year . "/f1_" . $d->getNumber() . ".png?v=$VERSION'
                                             >
                                         </td>
                                     </tr>";
@@ -319,7 +319,8 @@
     const list = $("#standings-list");
     const plate = $("#standings-box");
     const info = $("#info-wrapper");
-    plate.css("min-height", info.height() + 2.5 * header.height());
+    plate.css("min-height", info.height() + 3.8 * header.height());
+    // plate.css("min-height", info.height() + 2.5 * header.height());
     
     function updateStandingsElements() {        
         // Change style based on screen resolution so it stays within the standing entries
@@ -336,7 +337,7 @@
     const rightPanel = document.getElementById("info-wrapper");
     const leftPanel = document.getElementById("standings-list");
     const toggleBtn = document.getElementById("toggleBtn");
-    let isHidden = true;
+    let isHidden = false;
     
     function togglePanels() {        
         if (isHidden) { // When showing
