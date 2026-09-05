@@ -1,0 +1,58 @@
+:root {
+    color-scheme: dark;
+}
+
+@layer components {
+    .page-name {
+        font-family: 'Audiowide', sans-serif;
+        font-size: 2.3rem;
+        letter-spacing: 0.05em;
+        text-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
+    }
+
+    .button-primary {
+        @apply inline-flex items-center justify-center rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-400;
+    }
+
+    .button-secondary {
+        @apply inline-flex items-center justify-center rounded-full border border-slate-600 bg-slate-800 px-5 py-3 text-sm text-slate-200 transition hover:bg-slate-700;
+    }
+
+    .driver-wrapper {
+        @apply relative;
+    }
+
+    .draggable {
+        @apply cursor-grab select-none rounded-3xl border border-slate-700/40 bg-slate-900/90 shadow-lg;
+    }
+
+    .bettor-box {
+        @apply rounded-[1.75rem] border border-slate-700/80 bg-slate-950/85 p-5 shadow-2xl;
+    }
+
+    .bettor-box-info {
+        @apply flex flex-col gap-4;
+    }
+
+    .bettor-box-name {
+        @apply text-lg font-semibold text-slate-100;
+    }
+
+    .score-container {
+        @apply rounded-3xl bg-slate-900/80 px-4 py-3 text-slate-200;
+    }
+
+    #selection-list {
+        @apply min-h-[24rem];
+    }
+}
+
+@media (max-width: 48rem) {
+    .page-name {
+        font-size: 1.8rem;
+    }
+
+    .bettor-box {
+        @apply p-4;
+    }
+}

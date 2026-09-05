@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    /* -----------------------------------------
+       1. Global & Layout
+    ----------------------------------------- */
+    body {
+        @apply font-audiowide bg-[#ff7e7e] bg-[url('/Images/F1Pickem_background.png')] bg-[length:600px] 
+               w-full min-h-screen text-base xl:px-12 xl:min-w-[1550px];
+    }
+
+    #container {
+        @apply mx-auto w-full max-w-5xl px-4 xl:min-w-[1100px];
+    }
+
+    #page-name {
+        @apply text-black italic font-bold text-center py-6 px-4 text-5xl md:text-6xl 
+               xl:text-[80px] xl:my-5 xl:mx-auto xl:w-auto;
+    }
+
+    h1 {
+        @apply my-4 text-[#a2adb6] text-3xl text-center md:text-4xl xl:text-[30px];
+    }
+
+    /* -----------------------------------------
+       2. Buttons & Actions
+    ----------------------------------------- */
+    #submit-button {
+        @apply bg-[#578bff] mx-auto text-black text-2xl px-6 py-3 rounded-lg border-2 border-outset 
+               hover:bg-[#59bcff] active:bg-[#25468f] cursor-pointer transition-colors block
+               xl:text-lg xl:py-1 xl:px-4;
+    }
+
+    .choose-week-button {
+        @apply m-2 w-20 h-20 text-2xl text-black text-center bg-white/80 rounded-none
+               [clip-path:polygon(0_0,100%_0,100%_80%,80%_100%,0_100%)] 
+               hover:bg-[#a71616] hover:text-white active:bg-[#420909] transition-all
+               xl:m-1 xl:w-[100px] xl:h-[100px] xl:text-[50px];
+    }
+
+    /* -----------------------------------------
+       3. Plates & Widgets
+    ----------------------------------------- */
+    .plate-1 {
+        @apply my-4 w-full bg-[repeating-linear-gradient(32deg,#1b2b5a,#3b4973_25%,#1b2b5a_50%)] 
+               border-[5px] border-black rounded-3xl p-4 shadow-lg
+               xl:w-[40vw] xl:rounded-[1vw] xl:my-2 xl:p-2;
+    }
+
+    .plate-head {
+        @apply p-4 text-4xl text-center xl:text-[46px];
+    }
+
+    #selection-plate, #bet-plate {
+        @apply w-full box-border xl:w-[49.6%] xl:inline-block xl:align-top;
+    }
+
+    #bet-plate {
+        @apply mt-8 xl:mt-0 xl:float-right xl:min-h-[600px];
+    }
+
+    .widget {
+        @apply border-4 border-black rounded-2xl w-full max-w-[250px] mx-auto aspect-[3/2] 
+               flex justify-center items-center text-center shadow-md box-border 
+               xl:border-[3px] xl:w-[200px] xl:rounded-[15px];
+    }
+
+    /* -----------------------------------------
+       4. Betting Boxes & Drivers
+    ----------------------------------------- */
+    .bettor-box {
+        @apply mx-auto my-6 w-full max-w-[300px] shadow-[-10px_-10px_15px_0px_#1b103a] 
+               aspect-[5/9] relative bg-[#a00018] xl:float-left xl:m-5 xl:w-[250px];
+    }
+
+    .bet-box {
+        @apply bg-[#a00018] relative m-4 text-xl leading-relaxed xl:m-4 xl:text-[30px];
+    }
+
+    .bettor-box-poly {
+        @apply absolute border-l-[1em] border-[#8c1717] w-full shadow-[-6px_-10px_10px_0px_#1b103a];
+    }
+
+    .bettor-box-poly polygon {
+        @apply fill-[rgb(80,80,80)] stroke-black stroke-[0.1em];
+    }
+
+    .driver-data {
+        @apply absolute cursor-move bg-black text-white select-none text-lg px-2 py-1 rounded 
+               xl:text-xl;
+    }
+
+    /* Driver Tooltip (Hover logic built into CSS) */
+    .driver-tooltip-wrapper {
+        @apply absolute top-1 right-1 w-[16%] h-[24%] text-sm text-[#570000] text-right group;
+    }
+
+    .driver-tooltip-plate {
+        @apply invisible group-hover:visible absolute bg-[#181818] -right-2 -top-2 
+               cursor-move text-white text-base text-left z-10 p-2 shadow-xl border border-gray-700;
+    }
+
+    .driver-tooltip-data th {
+        @apply border-b-2 border-[#570000] text-[#717171] px-2 py-1 text-sm;
+    }
+
+    .driver-tooltip-data td {
+        @apply px-2 py-1 text-sm;
+    }
+
+    /* -----------------------------------------
+       5. Tables & Standings
+    ----------------------------------------- */
+    #standings-list {
+        @apply w-full border-spacing-y-2 text-[#a2adb6] relative z-10 
+               whitespace-normal md:whitespace-nowrap xl:w-auto;
+    }
+
+    .standings-entry {
+        @apply h-16 border-b-2 border-black even:bg-[#8c1717] odd:bg-[#660b0b] transition-all xl:h-10;
+    }
+
+    .standings-entry:not(:first-child) {
+        /* Adjusted the clip path slightly so it doesn't break on narrow mobile screens */
+        @apply [clip-path:polygon(0_0,100%_0,95%_100%,0_100%)] 
+               xl:[clip-path:polygon(0_0,100%_0,90%_100%,0_100%)];
+    }
+
+    /* -----------------------------------------
+       6. Notifications
+    ----------------------------------------- */
+    #status-message {
+        @apply bg-[#578bff] border-4 border-[#255edb] rounded-xl m-4 py-4 px-4 
+               w-full max-w-[910px] mx-auto text-black text-2xl text-center shadow-lg
+               xl:text-[60px] xl:py-6;
+    }
+}
