@@ -6,10 +6,7 @@ use App\Http\Controllers\PickController;
 use App\Http\Controllers\PastRacesController;
 use App\Http\Controllers\RulesController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Schedule;
 use App\Livewire\Settings;
-use App\Services\SmsService;
-use App\Services\PickemService;
 
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
@@ -36,15 +33,5 @@ Route::get('/sms/terms-conditions', function () {
 Route::get('/sms/privacy-policy', function () {
         return view('sms.privacy-policy');
     });
-
-// Run every morning at midnight to schedule all day's race/pick notifications
-Schedule::call(function () {
-    app(SmsService::class)->notifySchedule();
-})->dailyAt('00:00');
-
-// Run hourly to check for results of the next session and send notifications to users who opted in
-Schedule::call(function () {
-    app(PickemService::class)->pingResultsApi();
-})->hourlyAt(0);
 
 

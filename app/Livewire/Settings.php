@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use App\Models\UserSettings;
+use App\Models\UserSetting;
 
 class Settings extends Component
 {
@@ -21,7 +21,7 @@ class Settings extends Component
     public function mount()
     {
         $this->user = Auth::user();
-        $this->settings = UserSettings::where('user_id', Auth::id())->first();
+        $this->settings = UserSetting::where('user_id', Auth::id())->first();
         $this->settings->phone = $this->formatPhoneNumber($this->settings->phone);
 
         // Hydrate the properties with the user's current settings

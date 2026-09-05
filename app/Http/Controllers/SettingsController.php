@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-use App\Models\UserSettings;
+use App\Models\UserSetting;
 
 // NOT IN USE
 class SettingsController extends Controller
 {
     public function index()
     {
-        $settings = UserSettings::where('user_id', Auth::id())->first();
+        $settings = UserSetting::where('user_id', Auth::id())->first();
         $settings->phone = $this->formatPhoneNumber($settings->phone);
         return view('settings', compact('settings'));
     }

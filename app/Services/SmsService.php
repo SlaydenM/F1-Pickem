@@ -5,9 +5,10 @@ namespace App\Services;
 use App\Jobs\SmsJob;
 use App\Models\Race;
 use App\Models\User;
-use App\Models\UserSettings;
-use App\Models\Picks;
+use App\Models\UserSetting;
+use App\Models\Pick;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class SmsService
 {
@@ -30,7 +31,7 @@ class SmsService
         }
 
         // Fetch users along with their settings
-        $users = User::with('settings')->get();
+        $users = User::with('user_settings')->get();
 
         $bonuses = [
             ['FP3' => '+50%'],
@@ -40,12 +41,12 @@ class SmsService
         ];
 
         foreach ($users as $user) {
-            $settings = $user->settings;
+            $settings = $user->user_settings;
             if (!$settings) continue;
 
             foreach ($races as $race) {
                 // Check if user has submitted picks for this session
-                $hasSubmittedPicks = Picks::where('user_id', $user->id)
+                $hasSubmittedPicks = Pick::where('user_id', $user->id)
                     ->where('session_key', $race->session_key)
                     ->exists();
 
@@ -90,7 +91,7 @@ class SmsService
     public function notifyOthers(User $submittingUser, float $bonus, int $sessionKey): void
     {
         // Find users who opted into notify_others (excluding the submitting user)
-        $others = UserSettings::where('notify_others', true)
+        $others = UserSetting::where('notify_others', true)
             ->where('user_id', '!=', $submittingUser->id)
             // ->where('user_id', 3)
             ->get();
@@ -145,24 +146,26 @@ class SmsService
         //     and results after the Grand Prix. 
 
         //     Reply START to opt in.";
-        SmsJob::dispatch(
-            $user->phone,
-            "You have successfully opted in to receive text messages from F1 Pick'em." .
-            "\n".
-            "You can manage your notification preferences in the" .
-            "settings section of your account:" .
-            "https://f1pickem.net/settings" .
-            "\n".
-            "Reply STOP to opt out at any time."
-        );
+        // $user = Auth::user()->with('settings')->get();
+        // SmsJob::dispatch(
+        //     $user->phone,
+        //     "You have successfully opted in to receive text messages from F1 Pick'em." .
+        //     "\n".
+        //     "You can manage your notification preferences in the" .
+        //     "settings section of your account:" .
+        //     "https://f1pickem.net/settings" .
+        //     "\n".
+        //     "Reply STOP to opt out at any time."
+        // );
     }
 
     public function optOut() {
-        SmsJob::dispatch(
-            $user->phone,
-            "You have successfully been unsubscribed." .
-            "You will not receive any more messages from this number. " .
-            "Reply START to resubscribe."
-        );
+        // $user = Auth::user();
+        // SmsJob::dispatch(
+        //     $user->phone,
+        //     "You have successfully been unsubscribed." .
+        //     "You will not receive any more messages from this number. " .
+        //     "Reply START to resubscribe."
+        // );
     }
 }
