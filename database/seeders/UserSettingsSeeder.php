@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\UserSettings;
+use App\Models\UserSetting;
 
-class UserSettingsSeeder extends Seeder
+class UserSettingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,7 +18,7 @@ class UserSettingsSeeder extends Seeder
         $this->command->info('Starting seeder ...');
 
         User::all()->each(function ($user) {
-            UserSettings::create([
+            UserSetting::create([
                 'user_id' => $user->id,
                 'notify_picks' => 4, // Default to all
                 'notify_races' => 4, // Default to all
