@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Attributes\Description;
-use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use App\Services\PickemService;
 
@@ -16,9 +15,9 @@ class PullWinners extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(PickemService $service)
     {
-        $s = new PickemService();
-        $s->pullWinners((int) $this->argument('sessionKey'));
+        $service->pullWinners((int) $this->argument('sessionKey'));
+        $this->info("Winners pulled for session key: " . $this->argument('sessionKey'));
     }
 }

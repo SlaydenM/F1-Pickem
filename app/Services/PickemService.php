@@ -287,12 +287,14 @@ class PickemService
             if (isset($race['date'])) {
                 $time = $race['time'] ?? '00:00:00Z';
                 $this->upsertRace($sessionKey, 'G', $raceName, $race['date'] . 'T' . $time);
+                // print_r($sessionKey . ' | ' . $raceName . ' | ' . $race['date'] . 'T' . $time . "\n");
             }
 
             foreach ($apiSessionKeys as $apiKey => $type) {
                 if (isset($race[$apiKey])) {
                     $time = $race[$apiKey]['time'] ?? '00:00:00Z';
                     $this->upsertRace($sessionKey, $type, $raceName, $race[$apiKey]['date'] . 'T' . $time);
+                    // print_r($sessionKey . ' | ' . $raceName . ' | ' . $race[$apiKey]['date'] . 'T' . $time . "\n");
                 }
             }
         }

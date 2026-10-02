@@ -20,5 +20,6 @@ class DropWinners extends Command
     public function handle()
     {
         Winner::where('session_key', (int) $this->argument('sessionKey'))->delete();
+        $this->info("Winners dropped for session key: " . $this->argument('sessionKey'));
     }
 }
