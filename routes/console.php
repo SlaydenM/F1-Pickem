@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 use App\Services\SmsService;
 use App\Services\PickemService;
+use Carbon\Carbon;
 
 // Run every morning at midnight to schedule all day's race/pick notifications
 Schedule::call(function () {
@@ -15,3 +14,7 @@ Schedule::call(function () {
 Schedule::call(function () {
     app(PickemService::class)->pingResultsApi();
 })->hourlyAt(0);
+
+Schedule::call(function () {
+    app(PickemService::class)->updateSchedule(Carbon::now()->year);
+})->weeklyAt(3);
