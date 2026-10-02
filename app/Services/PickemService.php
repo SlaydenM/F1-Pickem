@@ -260,46 +260,6 @@ class PickemService
         }
     }
 
-    public function updateSchedule(int $year): void
-    {   
-        // Fetch the schedule from the Ergast API for the given year
-        // For each race, check if it exists in the database; if not, insert it
-        // For existing sessions, update the date/time if it has changed
-
-        $response = Http::withUserAgent('F1-Schedule-App/2.0')
-            ->get("https://api.jolpi.ca/ergast/f1/{$year}.json");
-
-        if (! $response->successful()) return;
-
-        $races = $response->json('MRData.RaceTable.Races', []);
-
-        $apiSessionKeys = [
-            'FirstPractice'    => 'FP1', 'SecondPractice' => 'FP2',
-            'ThirdPractice'    => 'FP3', 'Qualifying'     => 'Q',
-            'SprintQualifying' => 'SQ',  'SprintShootout' => 'SQ',
-            'Sprint'           => 'S',   'GrandPrix'      => 'G',
-        ];
-
-        foreach ($races as $race) {
-            $sessionKey = ($year - 2023) * 1000 + (int) $race['round'];
-            $raceName   = $race['raceName'];
-
-            if (isset($race['date'])) {
-                $time = $race['time'] ?? '00:00:00Z';
-                $this->upsertRace($sessionKey, 'G', $raceName, $race['date'] . 'T' . $time);
-                // print_r($sessionKey . ' | ' . $raceName . ' | ' . $race['date'] . 'T' . $time . "\n");
-            }
-
-            foreach ($apiSessionKeys as $apiKey => $type) {
-                if (isset($race[$apiKey])) {
-                    $time = $race[$apiKey]['time'] ?? '00:00:00Z';
-                    $this->upsertRace($sessionKey, $type, $raceName, $race[$apiKey]['date'] . 'T' . $time);
-                    // print_r($sessionKey . ' | ' . $raceName . ' | ' . $race[$apiKey]['date'] . 'T' . $time . "\n");
-                }
-            }
-        }
-    }
-
     private function upsertRace(int $sessionKey, string $type, string $name, string $dateStart): void
     {
         Race::updateOrCreate(
@@ -419,5 +379,73 @@ class PickemService
             return false;
         }
         return true;
+    }
+
+    // -- Other service methods --
+    public function updateSchedule(int $year): void
+    {   
+        // Fetch the schedule from the Ergast API for the given year
+        // For each race, check if it exists in the database; if not, insert it
+        // For existing sessions, update the date/time if it has changed
+
+        $response = Http::withUserAgent('F1-Schedule-App/2.0')
+            ->get("https://api.jolpi.ca/ergast/f1/{$year}.json");
+
+        if (! $response->successful()) return;
+
+        $races = $response->json('MRData.RaceTable.Races', []);
+
+        $apiSessionKeys = [
+            'FirstPractice'    => 'FP1', 'SecondPractice' => 'FP2',
+            'ThirdPractice'    => 'FP3', 'Qualifying'     => 'Q',
+            'SprintQualifying' => 'SQ',  'SprintShootout' => 'SQ',
+            'Sprint'           => 'S',   'GrandPrix'      => 'G',
+        ];
+
+        foreach ($races as $race) {
+            $sessionKey = ($year - 2023) * 1000 + (int) $race['round'];
+            $raceName   = $race['raceName'];
+
+            if (isset($race['date'])) {
+                $time = $race['time'] ?? '00:00:00Z';
+                $this->upsertRace($sessionKey, 'G', $raceName, $race['date'] . 'T' . $time);
+                // print_r($sessionKey . ' | ' . $raceName . ' | ' . $race['date'] . 'T' . $time . "\n");
+            }
+
+            foreach ($apiSessionKeys as $apiKey => $type) {
+                if (isset($race[$apiKey])) {
+                    $time = $race[$apiKey]['time'] ?? '00:00:00Z';
+                    $this->upsertRace($sessionKey, $type, $raceName, $race[$apiKey]['date'] . 'T' . $time);
+                    // print_r($sessionKey . ' | ' . $raceName . ' | ' . $race[$apiKey]['date'] . 'T' . $time . "\n");
+                }
+            }
+        }
+    }
+
+    public function updateBonuses(int $sessionKey) {
+        // For each pick in the current session, update the bonus values to reflect the time of submission relative to race start times
+        $races = $this->getSessionRaces($sessionKey);
+        if ($races->isEmpty()) return;
+
+        $tiers = [
+            ['mult' => 1.50, 'label' => 'EARLY BIRD', 'display' => '+50%', 'color' => '#22c55e'],
+            ['mult' => 1.25, 'label' => 'EARLY',       'display' => '+25%', 'color' => '#86efac'],
+            ['mult' => 1.10, 'label' => 'BONUS',        'display' => '+10%', 'color' => '#fbbf24'],
+            ['mult' => 1.00, 'label' => 'NO BONUS',     'display' => '+0%',  'color' => '#888888'],
+            ['mult' => 0.50, 'label' => 'LATE PENALTY', 'display' => '-50%', 'color' => '#E10600'],
+        ];
+
+        $picks = Pick::query()->where('session_key', $sessionKey);
+        $picks->each(function ($pick) use ($races, $tiers) {
+            $pickTime = Carbon::parse($pick->created_at);
+            foreach ($races as $index => $sessionRace) {
+                if ($pickTime->lt(Carbon::parse($sessionRace->date_start))) {
+                    $tier  = $tiers[$index] ?? $tiers[3];
+                    $bonus = $tier['mult'];
+                    $pick->update(['bonus' => $bonus]);
+                    break;
+                }
+            }
+        });
     }
 }
